@@ -8,7 +8,7 @@ public class Rocket : MonoBehaviour
     public GameObject explosion;
     void Start()
     {
-        Destroy(gameObject, 100);
+        Destroy(gameObject, 2);
     }
 
     // Update is called once per frame
@@ -24,6 +24,10 @@ public class Rocket : MonoBehaviour
             float rotation = Random.Range(0, 360);
             Instantiate(explosion, transform.position, Quaternion.Euler(0, 0, rotation));
             Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<Enemy>().Hurt();
         }
     }
 }

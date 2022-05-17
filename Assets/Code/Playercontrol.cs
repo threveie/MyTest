@@ -12,11 +12,15 @@ public class Playercontrol : MonoBehaviour
     public bool bFaceRight = true;
     public bool bJump = false;
     public float JumpForce = 100;
+
     private Transform mGrondCheck;
+
+    Animator anim;
     void Start()
     {
         HeroBody = GetComponent<Rigidbody2D>();
         mGrondCheck = transform.Find("GroundCheck");
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +37,7 @@ public class Playercontrol : MonoBehaviour
             HeroBody.velocity = new Vector2(Mathf.Sign(HeroBody.velocity.x) * MaxSpeed, HeroBody.velocity.y);
         }
 
+        anim.SetFloat("speed", Mathf.Abs(h));
 
         //½ÇÉ«Ðý×ª
         if (h > 0 && !bFaceRight)
@@ -71,6 +76,7 @@ public class Playercontrol : MonoBehaviour
         {
             HeroBody.AddForce(Vector2.up * JumpForce);
             bJump = false;
+            anim.SetTrigger("jumping");
         }
     }
 }
